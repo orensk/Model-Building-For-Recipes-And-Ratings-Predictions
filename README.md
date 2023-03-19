@@ -1,2 +1,4 @@
-# Model-Building-For-Recipes-And-Ratings-Predictions
-A Project for DSC80
+# Model Building For Recipes And Ratings Predictions
+
+## How Can We Predict The Rating of a Recipe?
+
