@@ -3,6 +3,7 @@ _By Oren Kaplan and Kavya Sriram_ <br>
 
 _Our exploratory data analysis on this dataset can be found <a href="https://sahithucsd25.github.io/Recipe-Rating-Analysis/">here</a>_
 
+_Data Cleaned by Kavya Sriram and Sahith Cherumandanda_
 
 
 ## How Can We Predict The Rating of a Recipe?
@@ -20,7 +21,7 @@ For our features we chose to use 3 quantitative features: 'minutes' (how many mi
 We chose these methods for our baseline model because we intuitively felt that these were strong features and they also required no encoding. We wanted to see how these baseline features performed in our baseline model before later using cross validation and other methods to produce a better final model.<br>
 
 ### Performance
-This baseline model performed _????????????????????????????????????? check which we use_
+This baseline model performance scored at 0.6966
 
 Overall this initial model performed poorly and had clear issues with overfitting alongside issues with bias towards predicting ratings of 5.
 
@@ -31,31 +32,37 @@ For our final model we chose to convert to a random forest classifier instead of
 
 
 ### Features
-For our final model, we implemented two new features _??????????????????????????? I think we only added one feature, nutrition, should we take out ingredients from baseline?_<br>
+For our final model, we implemented 4 new features: sugar, protein, sodium, and calories <br>
+We also removed the n_ingredients feature as we found that it reduced our test set accuracy through testing.<br>
 
-We chose to add nutrition details as a feature because we thought it was one of the highest value features available to us within the data set that we hadn't already used in our baseline model. Through intuition alone it is reasonable that elements of nutrition like sodium content and sugar content could sway ratings as these are things we as humans generally find good tasting. The nutrion data consisted of sugar, fat, saturated fat, carbs, sodium, protein, and calories. From these, we chose to use 
+We chose to add nutrition details as a feature because we thought it was one of the highest value features available to us within the data set that we hadn't already used in our baseline model. Through intuition its reasonable that elements of nutrition like sodium content and sugar content could sway ratings as these are things we as humans generally find good tasting. The nutrion data consisted of sugar, fat, saturated fat, carbs, sodium, protein, and calories. From these, we chose to use sugar, sodium, protein, and calories as they seemed the most valuable.
+
 ### Hyperparameters
-We implemented GridSearchCV to optimize our hyperparameters, choosing to use GridSearchCV on the hyperparameters: max_depth, max_features, and n_estimators. We chose max_depth and max_features because they should be the main parameters that determine overfitting, and part of our goal with this final model was to improve upon the overfitting seen in our baseline model. We chose n_estimators as a general hyperparam to optimize the speed and performance of our model because after a certain point adding more estimator decision trees offers no benefit to accuracy while taking much longer to run.<br>
+We implemented GridSearchCV with 10 folds to optimize our hyperparameters, choosing to use GridSearchCV on the hyperparameters: max_depth, max_features, and n_estimators. We chose max_depth and max_features because they should be the main parameters that determine overfitting, and part of our goal with this final model was to improve upon the overfitting seen in our baseline model. We chose n_estimators as a general hyperparam to optimize the speed and performance of our model because after a certain point adding more estimator decision trees offers no benefit to accuracy while taking much longer to run.<br>
 
-_The resulting optimal hyperparameters: {'max_depth': 100, 'max_features': 2, 'n_estimators': 300_ <br>
+The resulting optimal hyperparameters: {'max_depth': 110, 'max_features': 3, 'n_estimators': 300} <br>
 
 ### Performance
-This model performed _????_ compared to our baseline model. <br>
+This model was 12% more accurate compared to our baseline model. <br>
 
 The final model still has clear issues with bias towards predicting a rating of 5 but overall performs much better on unseen data than our previous decision tree baseline model.
 
+In order to further improve on this model we would have to implement data balancing measures because the support for ratings of 5 is higher than the support for the rest of the ratings combined.
+
 
 ## Fairness Analysis
-For our fairness analysis, we wanted to determine whether our classifier performed fairly between long (>1hr) and short (<=1hr) recipes. <br>
+For our fairness analysis, we wanted to determine whether our classifier performed fairly between long (>35mins) and short (<=35mins) recipes. <br>
 
 In order to use the F1 score on our imbalanced data set, we chose to use the one vs rest evaluation which allows us to split our multiclass classifcation problem into many binary classifications which can use F1 score as a metric. <br>
 
-NULL HYPOTHESIS: Our model is fair. Its precision for long (>1hr) and short(<1hr) recipes is roughly the same, and any differences are due to random chance. <br>
+NULL HYPOTHESIS: Our model is fair. Its precision for long (>35mins) and short(<=35mins) recipes is roughly the same, and any differences are due to random chance. <br>
 
 ALTERNATIVE HYPOTHESIS: Our model is unfair. Its precision for long and short recipes is significantly different <br>
 
-Significance Level: _???????????????????????_ 5% <br>
+Significance Level: 5% <br>
 
-P Value: _?????_ <br>
+<iframe src="assets/permfig.html" width=600 height=400 frameBorder=0></iframe>
 
-Conclusion: We found that it is likely that there is _??????_ we can _????_ the null hypothesis that _.............._
+P Value: 0.00 (very close to 0)<br>
+
+Conclusion: We found that it is likely that our model is not fair between long and short recipes. We can reject the null hypothesis that our model is fair, its precision for long (>35mins) and short(<35mins) recipes is roughly the same, and any differences are due to random chance.
