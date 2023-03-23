@@ -10,6 +10,7 @@ _Data Cleaned by Kavya Sriram and Sahith Cherumandanda_
 _These models were built on data from Food.com_ <br>
 
 The goal of this project was to predict the Rating of recipes using data such as nutrition value, recipe length, and more. Our model involved ordinal regression / multiclass classification with the response value, 'rating', being an ordinal discrete value from 1 - 5. <br>
+
 As for our metric, since this problem involved multiclass classification we found we were unable to use many common metrics such as f1 score as they are intended for use with binary classification. To combat this, we chose to implement these metrics by evaluating each indiviual class as its own binary classification problem using sklearns metrics classification report. This allowed us to use important metrics such as f1 score on our heavily imbalanced data set where ratings of 5 were far over-represented.
 
 
@@ -21,7 +22,7 @@ For our features we chose to use 3 quantitative features: 'minutes' (how many mi
 We chose these methods for our baseline model because we intuitively felt that these were strong features and they also required no encoding. We wanted to see how these baseline features performed in our baseline model before later using cross validation and other methods to produce a better final model.<br>
 
 ### Performance
-This baseline model performance scored at 0.6966
+This baseline model performance scored at 0.696
 
 Overall this initial model performed poorly and had clear issues with overfitting alongside issues with bias towards predicting ratings of 5.
 
@@ -43,7 +44,7 @@ We implemented GridSearchCV with 10 folds to optimize our hyperparameters, choos
 The resulting optimal hyperparameters: {'max_depth': 110, 'max_features': 3, 'n_estimators': 300} <br>
 
 ### Performance
-This model was 12% more accurate compared to our baseline model. <br>
+This model was 12% more accurate compared to our baseline model with a prediction accuracy of 0.837. <br>
 
 The final model still has clear issues with bias towards predicting a rating of 5 but overall performs much better on unseen data than our previous decision tree baseline model.
 
