@@ -53,10 +53,10 @@ The final model still has clear issues with bias towards predicting a rating of 
 In order to further improve on this model we would have to implement data balancing measures because the support for ratings of 5 is higher than the support for the rest of the ratings combined.
 
 Training Data Performance Confusion Matrix:
-<iframe src="assets/training_confusion_matrix.html" width=600 height=400 frameBorder=0></iframe>
+<iframe src="assets/training_confusion_matrix.png" width=600 height=400 frameBorder=0></iframe>
 
 Test Data Performance Confusion Matrix
-<iframe src="assets/testing_confusion_matrix.html" width=600 height=400 frameBorder=0></iframe>
+<iframe src="assets/testing_confusion_matrix.png" width=600 height=400 frameBorder=0></iframe>
 
 ## Fairness Analysis
 For our fairness analysis, we wanted to determine whether our classifier performed fairly between long (>35mins) and short (<=35mins) recipes. <br>
